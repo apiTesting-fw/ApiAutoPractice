@@ -58,6 +58,7 @@ public class StepsDefinition {
         Assert.assertEquals(response.getStatusCode(), 200);
         ResponseBody bodyResponse = response.body();
         String gitRepoName = json.readOrUpdateJsonBody(bodyResponse, "name", false, null, null);
+        scenarioContext.setContext("repoName", gitRepoName);
         String gitOwnerInfo = json.readOrUpdateJsonBody(bodyResponse, "owner", false, null, null);
         String owner = json.readDataFromJsonString(gitOwnerInfo, "login");
         System.out.println("owner: " + gitOwnerInfo);

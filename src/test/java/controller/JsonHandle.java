@@ -65,7 +65,7 @@ public class JsonHandle {
         }
         return apiValue;
     }
-
+// Read data from StringJson
     public String readDataFromJsonString(String stringJson, String key) {
         JSONParser parser = new JSONParser();
         String apiValue = null;
