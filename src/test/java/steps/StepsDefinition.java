@@ -21,7 +21,7 @@ public class StepsDefinition {
     ApiGet getMethod = new ApiGet();
     ApiPost postMethod = new ApiPost();
     ApiDelete deleteMethod = new ApiDelete();
-    ApiPut putMethod= new ApiPut();
+    ApiPut putMethod = new ApiPut();
     JsonHandle json = new JsonHandle();
     JSONParser parser = new JSONParser();
     private ScenarioContext scenarioContext;
@@ -36,7 +36,7 @@ public class StepsDefinition {
         Response response = getMethod.getUser();
         Assert.assertEquals(response.getStatusCode(), 200);
         ResponseBody bodyResponse = response.body();
-        String ownerGithub = json.readOrUpdateJsonBody(bodyResponse,"login",false,null,null);
+        String ownerGithub = json.readOrUpdateJsonBody(bodyResponse, "login", false, null, null);
         scenarioContext.setContext("owner", ownerGithub);
 
         System.out.println(ownerGithub);
@@ -48,22 +48,21 @@ public class StepsDefinition {
         Response response = postMethod.createRepo();
         Assert.assertEquals(response.getStatusCode(), 201);
         ResponseBody bodyResponse = response.body();
-        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse,"name",false,null,null);
+        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse, "name", false, null, null);
         scenarioContext.setContext("repoName", gitRepoName);
     }
+
     @And("I update a Github repository {string}")
     public void updateRepo(String oldName) throws ParseException {
         Response response = putMethod.updateRepo(oldName);
         Assert.assertEquals(response.getStatusCode(), 200);
         ResponseBody bodyResponse = response.body();
-        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse,"name",false,null,null);
-        scenarioContext.setContext("repoName", gitRepoName);
-
-
-       // String gitOwnerInfo = json.readOrUpdateJsonBody(bodyResponse,"owner",false,null,null);
-        // String owner = json.readDataFromJsonString(gitOwnerInfo,"login");
-       // System.out.println("owner: " + gitOwnerInfo);
-
+        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse, "name", false, null, null);
+        String gitOwnerInfo = json.readOrUpdateJsonBody(bodyResponse, "owner", false, null, null);
+        String owner = json.readDataFromJsonString(gitOwnerInfo, "login");
+        System.out.println("owner: " + gitOwnerInfo);
+        boolean result = owner.equals("apiTesting-fw");
+        System.out.println("result compare owner: " + result);
 
 
     }
@@ -74,7 +73,7 @@ public class StepsDefinition {
         System.out.println("owner: " + owner);
         String repoName = scenarioContext.getContext("repoName").toString();
         System.out.println("repoName: " + repoName);
-        Response response = deleteMethod.deleteRepo(owner,"/"+ repoName);
+        Response response = deleteMethod.deleteRepo(owner, "/" + repoName);
         Assert.assertEquals(response.getStatusCode(), 204);
     }
 }

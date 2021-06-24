@@ -75,7 +75,7 @@ public class JsonHandle {
             Object tempValue = jsonObject.get(key);
             apiValue = tempValue.toString();
 
-//            System.out.println(apiValue);
+            System.out.println(apiValue);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,7 +84,7 @@ public class JsonHandle {
 
     public static void main(String[] args) {
         JsonHandle json = new JsonHandle();
-        String a ="{owner: {\"gists_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/gists{\\/gist_id}\",\"repos_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/repos\",\"following_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/following{\\/other_user}\",\"starred_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/starred{\\/owner}{\\/repo}\",\"login\":\"apiTesting-fw\",\"followers_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/followers\",\"type\":\"User\",\"url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\",\"subscriptions_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/subscriptions\",\"received_events_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/received_events\",\"avatar_url\":\"https:\\/\\/avatars.githubusercontent.com\\/u\\/85815002?v=4\",\"events_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/events{\\/privacy}\",\"html_url\":\"https:\\/\\/github.com\\/apiTesting-fw\",\"site_admin\":false,\"id\":85815002,\"gravatar_id\":\"\",\"node_id\":\"MDQ6VXNlcjg1ODE1MDAy\",\"organizations_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/orgs\"}}";
+        String a ="{\"gists_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/gists{\\/gist_id}\",\"repos_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/repos\",\"following_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/following{\\/other_user}\",\"starred_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/starred{\\/owner}{\\/repo}\",\"login\":\"apiTesting-fw\",\"followers_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/followers\",\"type\":\"User\",\"url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\",\"subscriptions_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/subscriptions\",\"received_events_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/received_events\",\"avatar_url\":\"https:\\/\\/avatars.githubusercontent.com\\/u\\/85815002?v=4\",\"events_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/events{\\/privacy}\",\"html_url\":\"https:\\/\\/github.com\\/apiTesting-fw\",\"site_admin\":false,\"id\":85815002,\"gravatar_id\":\"\",\"node_id\":\"MDQ6VXNlcjg1ODE1MDAy\",\"organizations_url\":\"https:\\/\\/api.github.com\\/users\\/apiTesting-fw\\/orgs\"}";
         String  result = json.readDataFromJsonString(a, "login");
         System.out.println(result);
 
