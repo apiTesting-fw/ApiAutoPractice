@@ -39,7 +39,6 @@ public class StepsDefinition {
         String ownerGithub = json.readOrUpdateJsonBody(bodyResponse, "login", false, null, null);
         scenarioContext.setContext("owner", ownerGithub);
 
-        System.out.println(ownerGithub);
 
     }
 
@@ -61,7 +60,6 @@ public class StepsDefinition {
         scenarioContext.setContext("repoName", gitRepoName);
         String gitOwnerInfo = json.readOrUpdateJsonBody(bodyResponse, "owner", false, null, null);
         String owner = json.readDataFromJsonString(gitOwnerInfo, "login");
-        System.out.println("owner: " + gitOwnerInfo);
         boolean result = owner.equals("apiTesting-fw");
         System.out.println("result compare owner: " + result);
 
