@@ -3,21 +3,27 @@ package steps;
 import api.type.ApiDelete;
 import api.type.ApiGet;
 import api.type.ApiPost;
+import api.type.ApiPut;
 import controller.JsonHandle;
 import controller.ScenarioContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.junit.Assert;
+
 
 public class StepsDefinition {
     ApiGet getMethod = new ApiGet();
     ApiPost postMethod = new ApiPost();
     ApiDelete deleteMethod = new ApiDelete();
+    ApiPut putMethod = new ApiPut();
     JsonHandle json = new JsonHandle();
-
+    JSONParser parser = new JSONParser();
     private ScenarioContext scenarioContext;
 
     public StepsDefinition(ScenarioContext context) {
@@ -30,8 +36,10 @@ public class StepsDefinition {
         Response response = getMethod.getUser();
         Assert.assertEquals(response.getStatusCode(), 200);
         ResponseBody bodyResponse = response.body();
-        String ownerGithub = json.readOrUpdateJsonBody(bodyResponse,"login",false,null,null);
+        String ownerGithub = json.readOrUpdateJsonBody(bodyResponse, "login", false, null, null);
         scenarioContext.setContext("owner", ownerGithub);
+
+
     }
 
     @When("I create a Github repository")
@@ -39,15 +47,32 @@ public class StepsDefinition {
         Response response = postMethod.createRepo();
         Assert.assertEquals(response.getStatusCode(), 201);
         ResponseBody bodyResponse = response.body();
-        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse,"name",false,null,null);
+        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse, "name", false, null, null);
         scenarioContext.setContext("repoName", gitRepoName);
+    }
+
+    @And("I update a Github repository {string}")
+    public void updateRepo(String oldName) throws ParseException {
+        Response response = putMethod.updateRepo(oldName);
+        Assert.assertEquals(response.getStatusCode(), 200);
+        ResponseBody bodyResponse = response.body();
+        String gitRepoName = json.readOrUpdateJsonBody(bodyResponse, "name", false, null, null);
+        scenarioContext.setContext("repoName", gitRepoName);
+        String gitOwnerInfo = json.readOrUpdateJsonBody(bodyResponse, "owner", false, null, null);
+        String owner = json.readDataFromJsonString(gitOwnerInfo, "login");
+        boolean result = owner.equals("apiTesting-fw");
+        System.out.println("result compare owner: " + result);
+
+
     }
 
     @Then("I delete repository")
     public void deleteGitRepo() {
         String owner = scenarioContext.getContext("owner").toString();
+        System.out.println("owner: " + owner);
         String repoName = scenarioContext.getContext("repoName").toString();
-        Response response = deleteMethod.deleteRepo(owner,"/"+ repoName);
+        System.out.println("repoName: " + repoName);
+        Response response = deleteMethod.deleteRepo(owner, "/" + repoName);
         Assert.assertEquals(response.getStatusCode(), 204);
     }
 }

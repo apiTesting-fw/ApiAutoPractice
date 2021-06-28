@@ -11,7 +11,7 @@ public class ApiPost extends GlobalConfig {
     Utilities ultil = new Utilities();
 
     String[] keyUpdate = {"name"};
-    String[] valueUpdate = {ultil.generateRandomText()};
+    String[] valueUpdate = {"tuyenrepo10"};
 
     public Response createRepo() {
         apiConf.authenticationWithPrivateToken(apiConf.BASE_URL, apiConf.token);
@@ -19,6 +19,7 @@ public class ApiPost extends GlobalConfig {
                 .body(json.readOrUpdateJsonBodyFromFile("createRepo",true, keyUpdate,valueUpdate))
                 .post("/user/repos");
         return response;
+
     }
 
 }
