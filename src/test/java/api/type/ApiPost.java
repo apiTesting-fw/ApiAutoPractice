@@ -8,10 +8,10 @@ import io.restassured.response.Response;
 public class ApiPost extends GlobalConfig {
     GlobalConfig apiConf = new GlobalConfig();
     JsonHandle json = new JsonHandle();
-    Utilities ultil = new Utilities();
+    //Utilities ultil = new Utilities();
 
     String[] keyUpdate = {"name"};
-    String[] valueUpdate = {ultil.generateRandomText()};
+    String[] valueUpdate = {"tnhanphu_testing"};
 
     public Response createRepo() {
         apiConf.authenticationWithPrivateToken(apiConf.BASE_URL, apiConf.token);
