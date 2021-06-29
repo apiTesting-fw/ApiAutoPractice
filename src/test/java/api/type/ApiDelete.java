@@ -12,5 +12,5 @@ public class ApiDelete extends GlobalConfig {
         response = apiConf.request.delete("/repos/" + owner + repo);
         return response;
     }
-//    testsource
+
 }
